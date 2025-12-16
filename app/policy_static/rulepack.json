@@ -1,0 +1,109 @@
+{
+  "version": "1.0",
+  "org_id": "plenum-poc",
+
+  "required_fields": ["date", "amount", "currency", "category_code", "attachments"],
+
+  "deadlines": {
+    "reimbursement_cutoff_day": 24
+  },
+
+  "holidays": {
+    "policy": "flag"
+  },
+  "holiday_dates": [
+    "2025-12-01",
+    "2025-12-02",
+    "2025-12-03"
+  ],
+
+  "weekend": {
+    "enabled": true,
+    "days": ["FRI", "SAT"],
+    "require_approval_for": ["ENTERTAINMENT"]
+  },
+
+  "caps": {
+    "per_tx": {
+      "ENTERTAINMENT": 1500
+    },
+    "per_tx_weekend": {
+      "ENTERTAINMENT": 500
+    }
+  },
+
+  "budgets": {
+    "monthly_limits": {
+      "ENTERTAINMENT": 3000
+    }
+  },
+
+  "duplicate_rules": {
+    "window_days": 14,
+    "same_amount_tolerance": 1.0,
+    "desc_fuzzy_threshold": 0.85,
+    "time_bucket_hours": 24
+  },
+
+  "mcc_rules": {
+    "category_allowed_mcc": {
+      "ENTERTAINMENT": ["5813", "7932", "7929"]
+    }
+  },
+
+  "fx_rules": {
+    "max_deviation_pct": 5.0,
+    "tip_max_pct": 20.0,
+    "reference": {
+      "USD": 3.6725
+    }
+  },
+
+  "forex_card": {
+    "enabled": true,
+    "allowed_categories": ["TAXI", "F&B"]
+  },
+
+  "travel": {
+    "min_notice_working_days": 7,
+    "upgrades_require_approval": true,
+    "soft_mode": false,
+    "upgrade_scope_categories": ["Travel", "Flight", "Hotel"]
+  },
+
+  "project_docs": {
+    "po_required_for": ["PO"],
+    "pcc_required_for_payment": true
+  },
+
+  "receipts": {
+    "enabled": true,
+    "min_count": 1,
+    "hard_block": true,
+    "required_for_all": true,
+    "required_for_categories": ["ENTERTAINMENT", "TAXI"]
+  },
+
+  "risk_weights": {
+    "WEEKEND": 10,
+    "WEEKEND_CAP_BREACH": 20,
+
+    "CAP_OVER_TX": 30,
+    "BUDGET_OVER": 25,
+    "DUPLICATE": 20,
+    "MCC_MISMATCH": 15,
+    "FX_OUTLIER": 15,
+    "TIP_OUTLIER": 10,
+    "FOREX_MISUSE": 40,
+
+    "UPGRADE_NO_APPROVAL": 35,
+    "PO_MISSING": 40,
+    "PCC_MISSING": 40,
+
+    "HOLIDAY_SPEND": 10,
+    "TRAVEL_LEADTIME": 10,
+
+    "MISSING_RECEIPT": 35,
+    "RULE_ERROR": 5
+  }
+}
